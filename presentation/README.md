@@ -6,6 +6,7 @@
 |---|---|
 | `SONU_SS27_DirNote.pptx` | PowerPoint. GIF-референсы анимированные — играют в режиме показа. Весь текст редактируется. |
 | `SONU_SS27_DirNote.html` | HTML-копия той же вёрстки. Открывается в браузере, работает только рядом с папками `assets/`, `brand/` и `fonts/`. |
+| `SONU_SS27_DirNote.pdf` | PDF для отправки: 32 страницы 16:9, вместо GIF — выбранный кадр. |
 | `assets/` | Подготовленные картинки и GIF (обрезаны поля, сжаты). |
 | `fonts/` | Шрифты Manrope и IBM Plex Mono (лицензия OFL). |
 | `brand/` | Логотип SONU без фона (полный логотип, надпись, знак) в SVG и PNG, белый и чёрный — векторизован из брендбука. |
@@ -28,6 +29,7 @@
 pip install python-pptx pillow pillow-avif-plugin imageio-ffmpeg lxml   # + gifsicle в системе
 python3 presentation/tools/prepare_assets.py   # assets/ из исходников в корне
 python3 presentation/tools/build_deck.py       # PPTX + HTML из одного описания слайдов
+python3 presentation/tools/build_pdf.py        # PDF из HTML (нужен playwright + Chromium)
 ```
 
 Слайды описаны в `tools/build_deck.py`: одно описание собирает и PPTX, и HTML. Правки, сделанные вручную в PowerPoint или в HTML, при пересборке не сохраняются.

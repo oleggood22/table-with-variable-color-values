@@ -88,7 +88,7 @@ s.text(1052, 900, 740, 52, "Running · Padel · Sportswear · Fitness", color=PA
 s = new("task", PAPER, "Задача")
 label(s, M, M, 600, "Задача", CLAY_L)
 s.text(M, 176, 1300, 140, "Концепция четырёх роликов для социальных сетей", color=INK, **TITLE)
-cols = [("4", "ролика"), ("30″", "секунд каждый"), ("2", "съёмочные смены")]
+cols = [("4", "ролика"), ("30\"", "секунд каждый"), ("2", "съёмочные смены")]
 for i, (n, cap) in enumerate(cols):
     x = M + i * 560
     s.text(x, 356, 520, 210, n, color=INK, font="light", size=210, lh=0.95, ls=-6)
