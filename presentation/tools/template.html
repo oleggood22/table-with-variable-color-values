@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SONU SS27 — Director's Note</title>
+<style>
+  @font-face { font-family: "Manrope"; font-weight: 300; src: url("{{FONTS}}Manrope-Light.ttf") format("truetype"); }
+  @font-face { font-family: "Manrope"; font-weight: 400; src: url("{{FONTS}}Manrope-Regular.ttf") format("truetype"); }
+  @font-face { font-family: "Manrope"; font-weight: 600; src: url("{{FONTS}}Manrope-SemiBold.ttf") format("truetype"); }
+  @font-face { font-family: "IBM Plex Mono"; font-weight: 400; src: url("{{FONTS}}IBMPlexMono-Regular.ttf") format("truetype"); }
+
+  :root { --ui: #8d9294; --ui-bg: rgba(13,15,17,.82); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: #0d0f11; overflow: hidden; }
+  body { font-family: "Manrope", system-ui, sans-serif; }
+
+  #stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: 0 0; }
+  .slide { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; display: none; }
+  .slide.on { display: block; }
+  .slide > * { position: absolute; margin: 0; }
+  .im { object-fit: cover; display: block; }
+  .tx { display: flex; flex-direction: column; overflow: visible; }
+  .tx p { margin: 0; }
+
+  /* edit mode */
+  body.edit .tx { outline: 1px dashed rgba(201,94,52,.55); cursor: text; }
+  body.edit .tx:focus { outline: 2px solid #c95e34; }
+
+  /* overview */
+  body.grid { overflow: auto; }
+  body.grid #stage { position: static; transform: none !important; width: auto; height: auto;
+    display: flex; flex-wrap: wrap; gap: 24px; padding: 24px; zoom: .2; }
+  body.grid .slide { position: relative; display: block; cursor: pointer; flex: none; }
+  body.grid .slide.on { outline: 12px solid #c95e34; }
+
+  #ui { position: fixed; right: 16px; bottom: 16px; display: flex; gap: 8px; align-items: center;
+    font: 13px/1 "IBM Plex Mono", monospace; color: var(--ui); background: var(--ui-bg);
+    padding: 8px 10px; border-radius: 6px; opacity: 0; transition: opacity .3s; z-index: 10; }
+  body:hover #ui, body.edit #ui, body.grid #ui { opacity: 1; }
+  #ui button { font: inherit; color: #e9e6e0; background: transparent; border: 1px solid #3a3f43;
+    border-radius: 4px; padding: 5px 8px; cursor: pointer; }
+  #ui button.act { background: #c95e34; border-color: #c95e34; color: #0d0f11; }
+  #hint { position: fixed; left: 16px; bottom: 16px; font: 12px/1.5 "IBM Plex Mono", monospace; color: var(--ui);
+    background: var(--ui-bg); padding: 8px 10px; border-radius: 6px; max-width: 420px; display: none; z-index: 10; }
+  body.edit #hint { display: block; }
+
+  @media print {
+    @page { size: 1920px 1080px; margin: 0; }
+    html, body { overflow: visible; height: auto; background: none; }
+    #stage { position: static; transform: none !important; }
+    .slide { position: relative; display: block !important; page-break-after: always; break-after: page; }
+    #ui, #hint { display: none !important; }
+    body.edit .tx { outline: none; }
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+{{SLIDES}}
+</div>
+
+<div id="hint">Режим редактирования: кликните по любому тексту и правьте. Ctrl+S или «Сохранить» скачивает обновлённый HTML — положите его на место старого (рядом с папками assets и fonts).</div>
+<div id="ui">
+  <button id="bPrev" title="Назад (←)">←</button>
+  <span id="count"></span>
+  <button id="bNext" title="Вперёд (→)">→</button>
+  <button id="bGrid" title="Все слайды (G)">G</button>
+  <button id="bEdit" title="Редактировать текст (E)">Edit</button>
+  <button id="bSave" title="Сохранить HTML (Ctrl+S)">Сохранить</button>
+  <button id="bFull" title="Полный экран (F)">⤢</button>
+</div>
+
+<script>
+(function () {
+  var stage = document.getElementById('stage');
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var count = document.getElementById('count');
+  var cur = 0;
+
+  function fit() {
+    if (document.body.classList.contains('grid')) return;
+    var s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+    stage.style.transform = 'scale(' + s + ') translate(-50%, -50%)';
+  }
+  function show(i) {
+    cur = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach(function (el, k) { el.classList.toggle('on', k === cur); });
+    count.textContent = (cur + 1) + ' / ' + slides.length;
+    if (location.hash !== '#' + (cur + 1)) history.replaceState(null, '', '#' + (cur + 1));
+  }
+  function editing() { return document.body.classList.contains('edit'); }
+  function setEdit(on) {
+    document.body.classList.toggle('edit', on);
+    document.getElementById('bEdit').classList.toggle('act', on);
+    document.querySelectorAll('.tx').forEach(function (t) {
+      if (on) t.setAttribute('contenteditable', 'true'); else t.removeAttribute('contenteditable');
+    });
+    if (!on && document.activeElement) document.activeElement.blur();
+  }
+  function setGrid(on) {
+    document.body.classList.toggle('grid', on);
+    document.getElementById('bGrid').classList.toggle('act', on);
+    if (on) { stage.style.transform = ''; slides[cur].scrollIntoView({block: 'center'}); } else { fit(); }
+  }
+  function save() {
+    var wasEdit = editing(), wasGrid = document.body.classList.contains('grid');
+    setEdit(false); setGrid(false);
+    slides.forEach(function (el) { el.classList.remove('on'); });
+    stage.style.transform = '';
+    var doc = '<!doctype html>\n' + document.documentElement.outerHTML;
+    show(cur); fit(); if (wasEdit) setEdit(true); if (wasGrid) setGrid(true);
+    var name = decodeURIComponent(location.pathname.split('/').pop() || 'SONU_SS27_DirNote.html');
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([doc], {type: 'text/html'}));
+    a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') { e.preventDefault(); save(); return; }
+    if (editing() && document.activeElement && document.activeElement.isContentEditable) {
+      if (e.key === 'Escape') document.activeElement.blur();
+      return;
+    }
+    var k = e.key;
+    if (k === 'ArrowRight' || k === 'PageDown' || k === ' ') { e.preventDefault(); show(cur + 1); }
+    else if (k === 'ArrowLeft' || k === 'PageUp') { e.preventDefault(); show(cur - 1); }
+    else if (k === 'Home') show(0);
+    else if (k === 'End') show(slides.length - 1);
+    else if (k === 'e' || k === 'E' || k === 'у' || k === 'У') setEdit(!editing());
+    else if (k === 'g' || k === 'G' || k === 'п' || k === 'П') setGrid(!document.body.classList.contains('grid'));
+    else if (k === 'f' || k === 'F' || k === 'а' || k === 'А') {
+      if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen();
+    }
+  });
+  stage.addEventListener('click', function (e) {
+    if (document.body.classList.contains('grid')) {
+      var s = e.target.closest('.slide'); if (s) { show(slides.indexOf(s)); setGrid(false); }
+      return;
+    }
+    if (editing()) return;
+    if (e.clientX > window.innerWidth / 2) show(cur + 1); else show(cur - 1);
+  });
+  document.getElementById('bPrev').onclick = function () { show(cur - 1); };
+  document.getElementById('bNext').onclick = function () { show(cur + 1); };
+  document.getElementById('bGrid').onclick = function () { setGrid(!document.body.classList.contains('grid')); };
+  document.getElementById('bEdit').onclick = function () { setEdit(!editing()); };
+  document.getElementById('bSave').onclick = save;
+  document.getElementById('bFull').onclick = function () {
+    if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen();
+  };
+  window.addEventListener('resize', fit);
+  var start = parseInt((location.hash || '').slice(1), 10);
+  show(isNaN(start) ? 0 : start - 1);
+  fit();
+})();
+</script>
+</body>
+</html>
