@@ -12,12 +12,24 @@ PRES = os.path.abspath(os.path.join(HERE, ".."))
 ASSETS = os.path.join(PRES, "assets")
 
 # palette
-INK = "#0D0F11"      # dark
-PAPER = "#EAE7E1"    # light
-SOFT_D = "#A4A9AB"   # secondary text on dark
-SOFT_L = "#52575A"   # secondary text on light
-CLAY_D = "#D46A3F"   # accent on dark
-CLAY_L = "#A2421C"   # accent on light
+# palette follows the SONU identity guide: black 419C + white, orange from the extra palette
+INK = "#232323"      # Pantone Black 419C
+PAPER = "#F1F1F1"    # light
+SOFT_D = "#B0B0B0"   # secondary text on dark
+SOFT_L = "#555555"   # secondary text on light
+CLAY_D = "#FFA078"   # accent on dark (SONU #FFA078)
+CLAY_L = "#B83C1A"   # accent on light (SONU #E15028, darkened for contrast)
+
+# logos (presentation/brand), paths relative to assets/
+LOCKUP_W = ("../brand/sonu-lockup-white.png", 2333, 364)
+WORDMARK_W = ("../brand/sonu-wordmark-white.png", 2313, 473)
+SIGN_W = ("../brand/sonu-sign-white.png", 695, 569)
+SIGN_B = ("../brand/sonu-sign-black.png", 695, 569)
+
+
+def logo(s, spec, x, y, w, alt="SONU"):
+    src, lw, lh = spec
+    s.img(src, x, y, w, round(w * lh / lw), alt=alt)
 
 M = 128  # margin
 
@@ -48,9 +60,11 @@ def bottom_scrim(s, top=420, strength=0.82):
     s.grad(0, top, W, H - top, 180, [(0, INK, 0), (0.55, INK, strength * 0.6), (1, INK, strength)])
 
 
-def opener(s, index, name, subtitle, dark_text=False, title_lines=1):
+def opener(s, index, name, subtitle, dark_text=False, title_lines=1, sign=False):
     """Film / chapter opener: label, mega title bottom-left, subtitle bottom-right."""
     fg = INK if dark_text else PAPER
+    if sign:
+        logo(s, SIGN_B if dark_text else SIGN_W, W - M - 80, M, 80, alt="Знак SONU")
     th = int(220 * 0.9 * title_lines) + 20
     ty = 952 - th + 24
     label(s, M, ty - 52, 900, index, fg)
@@ -64,7 +78,8 @@ def opener(s, index, name, subtitle, dark_text=False, title_lines=1):
 s = new("cover", INK, "Обложка")
 s.img("cover-laugh.jpg", 0, 0, W, H, fx=0.5, fy=0.5, alt="Герой смеётся, бетонная стена")
 bottom_scrim(s, top=460, strength=0.85)
-label(s, M, 700, 900, f"{BRAND} · Director's note", PAPER)
+logo(s, LOCKUP_W, M, M, 520, alt="SONU")
+label(s, M, 700, 900, "Director's note", PAPER)
 s.text(M, 740, 1100, 212, "SS27", color=PAPER, valign="b", **MEGA)
 s.text(1052, 900, 740, 52, "Running · Padel · Sportswear · Fitness", color=PAPER, align="r", valign="b",
        font="light", size=36, lh=1.2)
@@ -232,7 +247,7 @@ s.text(M, 808, 960, 136,
 s = new("running", INK, "Running")
 s.img("run-aerial.jpg", 0, 0, W, H, alt="Бегуны на улице, вид сверху")
 bottom_scrim(s, top=420, strength=0.8)
-opener(s, "01 / 04 · 30″", "RUNNING", "Движение и технологичность")
+opener(s, "01 / 04 · 30″", "RUNNING", "Движение и технологичность", sign=True)
 
 # 15 lidar
 s = new("lidar", "#060708", "LIDAR")
@@ -267,7 +282,7 @@ s.text(M, 740, 640, 212,
 s = new("padel", INK, "Padel")
 s.img("padel-lines.jpg", 0, 0, W, H, fx=0.5, fy=0.5, alt="Линии корта, макро")
 bottom_scrim(s, top=360, strength=0.78)
-opener(s, "02 / 04 · 30″", "PADEL", "Герой и геометрия")
+opener(s, "02 / 04 · 30″", "PADEL", "Герой и геометрия", sign=True)
 
 # 19 geometry
 s = new("geometry", PAPER, "Геометрия корта")
@@ -290,7 +305,7 @@ s.text(1308, 716, 484, 236, "Она проходит вдоль рук, раке
 s = new("sportswear", INK, "Sportswear")
 s.img("sw-storm.gif", 0, 0, W, H, fx=0.5, fy=0.3, alt="Силуэт бегуна под грозовым небом")
 bottom_scrim(s, top=520, strength=0.6)
-opener(s, "03 / 04 · 30″", "SPORTSWEAR", "Свобода и жизнь")
+opener(s, "03 / 04 · 30″", "SPORTSWEAR", "Свобода и жизнь", sign=True)
 
 # 22 fashion
 s = new("fashion", INK, "Fashion")
@@ -322,7 +337,7 @@ for i, (k, v) in enumerate(fx_rows):
 s = new("fitness", PAPER, "Fitness")
 s.img("fit-studio.gif", 0, 0, W, H, fx=0.5, fy=0.5, alt="Фитнес в белой студии, синий костюм")
 s.grad(0, 480, W, H - 480, 180, [(0, PAPER, 0), (0.55, PAPER, 0.72), (1, PAPER, 0.92)])
-opener(s, "04 / 04 · 30″", "FITNESS", "Движение и эстетика", dark_text=True)
+opener(s, "04 / 04 · 30″", "FITNESS", "Движение и эстетика", dark_text=True, sign=True)
 
 # 25 fitness space
 s = new("space", PAPER, "Пространство")
@@ -403,7 +418,8 @@ s.grad(0, 360, W, H - 360, 180, [(0, INK, 0), (0.45, INK, 0.7), (1, INK, 0.94)])
 s.text(M, 620, 900, 140,
        "Мне было интересно работать с идеей, миссией и позиционированием бренда — и соединить их "
        "с моей визуальной стилистикой и собственным видением.", color=PAPER, **BODY)
-s.text(M, 790, 1500, 162, "Спасибо за возможность стать его частью!", color=PAPER, valign="b", **TITLE)
+s.text(M, 790, 1160, 162, "Спасибо за возможность стать его частью!", color=PAPER, valign="b", **TITLE)
+logo(s, WORDMARK_W, W - M - 340, 952 - 70 + 4, 340, alt="SONU")
 
 
 if __name__ == "__main__":
