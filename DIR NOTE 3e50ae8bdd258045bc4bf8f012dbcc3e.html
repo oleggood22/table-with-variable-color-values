@@ -1,0 +1,821 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>DIR NOTE </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3e50ae8b-dd25-8045-bc4b-f8f012dbcc3e" class="page sans"><header><h1 class="page-title" dir="auto">DIR NOTE </h1><p class="page-description" dir="auto"></p></header><div class="page-body"><h4 id="3e50ae8b-dd25-80a8-bac3-ebf36aaef0d3" class="" dir="auto">Задачи</h4><ul id="3e50ae8b-dd25-8057-981b-f34ca62dc9d2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Придумать концепцию для 4 роликов длительностью 30 секунд для социальных сетей:<ul id="3e50ae8b-dd25-80b2-a0e5-fa0bf503cadf" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Runing</li></ul><ul id="3e50ae8b-dd25-805a-a2dc-ce03c1963542" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Fitnes</li></ul><ul id="3e50ae8b-dd25-8077-b1b8-c068e33b19c7" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Padel</li></ul><ul id="3e50ae8b-dd25-806a-b795-ce9a9102b7c2" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Sporwear</li></ul></li></ul><ul id="3e50ae8b-dd25-80c0-970b-ce0a05c5fd9e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Уточнить как будут выглядеть версии для экранов:<ul id="3e50ae8b-dd25-8044-8d71-def21b030aba" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Runing + Fitnes</li></ul><ul id="3e50ae8b-dd25-801a-b834-f66b1798adbf" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Padel + Sporwear<br/></li></ul></li></ul><p id="3e50ae8b-dd25-8057-9251-fbdb0fb25249" class="" dir="auto">
+</p><p id="3e50ae8b-dd25-80bd-a09f-ce78ab900c6f" class="" dir="auto">
+</p><p id="3e50ae8b-dd25-8031-856c-c25747bd244b" class="" dir="auto">
+</p><h3 id="3e50ae8b-dd25-80c1-9009-fe30a52505fb" class="" dir="auto">Интро</h3><p id="3e50ae8b-dd25-8014-a93f-caaf60adacce" class="" dir="auto">Спорт не всегда начинается с цели, тренировок на пределе возможностей. Иногда с желания двигаться и быть частью этой культуры. Я хочу показать, что SUNO — проводник в этом пути. Для бренда спорт существует не как испытание на предел, а как ощущение свободы, где технология, комфорт и эстетика слившись вместе помогает получать удовольствие от движения.</p><p id="3e50ae8b-dd25-80ea-bca2-d77fd3ec4581" class="" dir="auto">Мы не снимаем спорт как испытание. Мы снимаем удовольствие от движения, когда находишь свой ритм, а технология просто помогает тебе не отвлекаться от этого.</p><p id="3e50ae8b-dd25-807f-8527-ffa2ce8bb4fb" class="" dir="auto"><strong>Поэтому в SS27 мы хотим показать не сам спорт, а то, что человек чувствует.</strong> Импульс, концентрацию, лёгкость, энергию, контакт с собственным телом. Нам интересно поймать тот момент, когда ты находишь свой ритм и просто получаешь удовольствие от того, что делаешь.<br/></p><h4 id="3e50ae8b-dd25-805e-baa0-c4f7d1f2d8c7" class="" dir="auto">Approuch</h4><p id="3e60ae8b-dd25-8023-8e84-e65ef161fd2e" class="" dir="auto">
+</p><p id="3e60ae8b-dd25-8053-958a-efdf8d16a173" class="" dir="auto">Каждый ролик становится небольшой историей. Она строится не вокруг спортивного результата, а вокруг движения, человека и эстетики отдельного вида спорта.</p><p id="3e60ae8b-dd25-8001-b951-edb165bdfe5a" class="" dir="auto">Герои не выглядят профессиональными атлетами из спортивной рекламы. Здесь нет акцента на поте, превозмогании и боли. В центре остаются естественное движение, характер человека, комфорт и ощущение себя в одежде.</p><p id="3e60ae8b-dd25-80e2-94e8-d79fba9fcb92" class="" dir="auto">Одежда и тело становятся единым целым. Движение помогает раскрыть посадку, силуэт и детали вещей.</p><p id="3e60ae8b-dd25-804a-a23f-c52fe6099905" class="" dir="auto">Визуальный язык также обращается к fashion. Спорт становится частью образа жизни, а внимание переходит от результата к пластике, “позированию”, характеру и живости героя.</p><p id="3e60ae8b-dd25-80a4-b561-c1e2dd2c9dde" class="" dir="auto">Очень важно и хочется, чтобы герой в кадре был настоящий и живой, не ощущался как статичная модель без эмоций.</p><p id="3e60ae8b-dd25-8049-bc91-e4e3597a14e9" class="" dir="auto">Съёмка планируется в две смены. За это время создаются четыре основных ролика. На их основе в монтаже собираются дополнительные версии для экранов и разных форматов. За счет нескольких смен, мы можем экспериментировать с различными техническими средствами и еще сильнее разнообразить визуальный подход.</p><p id="3e60ae8b-dd25-8099-9048-e4718b8cd150" class="" dir="auto">
+</p><figure id="3e50ae8b-dd25-808f-8e95-ef40c98bfccd" class="image" data-notion-image="SaveClip.App_550064447_18368452846194945_3346294024597490047_n.jpg" dir="ltr"><a href="SaveClip.App_550064447_18368452846194945_3346294024597490047_n.jpg"><img style="width:704px" src="SaveClip.App_550064447_18368452846194945_3346294024597490047_n.jpg"/></a></figure><p id="3e50ae8b-dd25-8066-89b6-efa322577fee" class="" dir="auto">
+</p><h4 id="3e50ae8b-dd25-8087-ae00-d103667bddc4" class="" dir="auto">VISION &amp; TOON</h4><p id="3e50ae8b-dd25-8005-bae2-e6b829311660" class="" dir="auto">
+</p><p id="3e60ae8b-dd25-80da-b254-c46ccc154e0f" class="" dir="auto">Камера большую часть времени остаётся наблюдателем. Основной инструмент съёмки это длиннофокусная оптика. Ручная камера и широкоугольные объективы появляются только в отдельных моментах, когда нужно усилить ощущение движения или найти необычный ракурс.</p><p id="3e60ae8b-dd25-804e-bd17-d8b3e92bdb62" class="" dir="auto">Стедикам, кран и роборука создают разные характеры движения. Общий визуальный язык объединяет четыре ролика, а разные системы движения камеры позволяют каждому направлению получить своё решение.</p><p id="3e60ae8b-dd25-807b-ad13-ecdcc8d3ee11" class="" dir="auto">Высокая частота съёмки ключевая составляющая. Рапиды позволяют задержаться на коротких моментах и рассмотреть движение ткани, эмоцию или отдельную фазу движения.</p><p id="3e60ae8b-dd25-8063-bd8b-e3a0012fed48" class="" dir="auto">Вспышки света фиксируют отдельные доли секунды и добавляют изображению ощущение фотографии.</p><p id="3e60ae8b-dd25-804c-8de6-e11598650857" class="" dir="auto">Не уходим в грубый дарк визуал, наш референс fashion midle+ сегмента. Мы позволяем себе низкий ключ, грубые текстуры, но оставляем акцент на героях и одежде. Тёмная и тяжёлая спортивную эстетику здесь не строим, изображение должно рассказывать ровно противоположное. Наше направление это баланс ощущения натуральности и “кинематографичной”.</p><figure id="3e50ae8b-dd25-8019-953d-c9c760b28a56" class="image" data-notion-image="Timeline_2.gif" dir="ltr"><a href="Timeline_2.gif"><img style="width:703.9874877929688px" src="Timeline_2.gif"/></a></figure><figure id="3e50ae8b-dd25-80f9-b9d3-c26329995f8f" class="image" data-notion-image="Timeline_2_00000200.gif" dir="ltr"><a href="Timeline_2_00000200.gif"><img style="width:703.9874877929688px" src="Timeline_2_00000200.gif"/></a></figure><figure id="3e60ae8b-dd25-80bf-84e3-c8bbbdf81f71" class="image" data-notion-image="SaveClip.App_AQMJStbn2rIhoqLurfr0Ut4RygAnsBtWms36waK8uz9EEd4VbALzh8i-TmA9fNKjtnpdhdW60LzeBIOEowBKnkphmTN_Sry70inVi0Y00000000.gif" dir="ltr"><a href="SaveClip.App_AQMJStbn2rIhoqLurfr0Ut4RygAnsBtWms36waK8uz9EEd4VbALzh8i-TmA9fNKjtnpdhdW60LzeBIOEowBKnkphmTN_Sry70inVi0Y00000000.gif"><img style="width:703.9874877929688px" src="SaveClip.App_AQMJStbn2rIhoqLurfr0Ut4RygAnsBtWms36waK8uz9EEd4VbALzh8i-TmA9fNKjtnpdhdW60LzeBIOEowBKnkphmTN_Sry70inVi0Y00000000.gif"/></a></figure><figure id="3e60ae8b-dd25-8052-9006-ee213cc39f72" class="image" data-notion-image="SaveClip.App_AQPYu1zpKrJe5AKwUILHQ9mgylKLyjB3wKeqZick4ARlBhkYriVaQ8_DM6AwBOc-QIoXsmlh1TmJFY6peoe2D0sbbuVxmdXxFMRCM9Y00000032.gif" dir="ltr"><a href="SaveClip.App_AQPYu1zpKrJe5AKwUILHQ9mgylKLyjB3wKeqZick4ARlBhkYriVaQ8_DM6AwBOc-QIoXsmlh1TmJFY6peoe2D0sbbuVxmdXxFMRCM9Y00000032.gif"><img style="width:703.9874877929688px" src="SaveClip.App_AQPYu1zpKrJe5AKwUILHQ9mgylKLyjB3wKeqZick4ARlBhkYriVaQ8_DM6AwBOc-QIoXsmlh1TmJFY6peoe2D0sbbuVxmdXxFMRCM9Y00000032.gif"/></a></figure><p id="3e50ae8b-dd25-80f6-bc87-efe322dfef00" class="" dir="auto">
+</p><h4 id="3e50ae8b-dd25-809c-8f91-efda8eea9dec" class="" dir="auto">SYNOPSIS</h4><p id="3e60ae8b-dd25-8024-9d4e-c4dd7e0395c0" class="" dir="auto">
+</p><p id="3e60ae8b-dd25-80bc-a6a2-c888bddafd33" class="" dir="auto">Sportwear выходит за рамки тренировки. Спорт становится частью повседневной жизни.</p><p id="3e60ae8b-dd25-80f6-a4d9-ee05148990b6" class="" dir="auto">В центре остаётся человек. Его движение показывает характер одежды. Ткань повторяет движение тела. Она растягивается, возвращается в форму и сохраняет силуэт.</p><p id="3e60ae8b-dd25-8092-8598-d3ac72b781ad" class="" dir="auto">Не строим сложную сюжетную линию. Не ведём героя к конкретному результату.</p><p id="3e60ae8b-dd25-8071-85fa-f014448d28fd" class="" dir="auto">Камера наблюдает за тем, что происходит в течение этого момента. Разминка, движение, короткий отдых, концентрация, эмоции. Эти детали создают ощущение “документальности” происходящего. <br/></p><p id="3e60ae8b-dd25-80ae-9a7a-effed55c4680" class="" dir="auto">Технологичность одежды становится частью истории. Мы не объясняем свойства ткани напрямую. Мы показываем их через движение, свет и контакт с телом.</p><p id="3e60ae8b-dd25-8009-aeed-e4f9ed3b017f" class="" dir="auto">Sportwear соединяет <strong>функциональность, технологичность и fashion</strong>. Одежда работает вместе с человеком и остаётся частью его образа.</p><p id="3e60ae8b-dd25-8098-8cb7-c3537926c2bb" class="" dir="auto">
+</p><h4 id="3e50ae8b-dd25-807e-9b6e-f6e400b2a990" class="" dir="auto">RUNNING</h4><p id="3e60ae8b-dd25-80fd-9e48-d9102af56d1e" class="" dir="auto">Движение и технологичность</p><p id="3e50ae8b-dd25-806e-95ff-f0d0dad5cd44" class="" dir="auto">
+</p><p id="3e60ae8b-dd25-80b3-8aa3-dbc1926875c3" class="" dir="auto">В беге человек становится частью большой технологичной среды.</p><p id="3e60ae8b-dd25-80a0-a5b5-c5394d581a1a" class="" dir="auto">LIDAR позволяет переводить реальное пространство в пространство из облака точек. Переход происходит прямо внутри движения и становится частью визуального языка ролика.</p><p id="3e60ae8b-dd25-80ca-921d-ed25bee8b9cc" class="" dir="auto">Камера чаще наблюдает за героем со стороны. Масштаб локации подчёркивает его движение внутри пространства.</p><p id="3e60ae8b-dd25-805e-80d3-d38e8914a733" class="" dir="auto">Помимо самого бега, в кадре появляются разминка, отдых, эмоции и детали одежды. Эти моменты создают полноценное ощущение тренировки и постепенно раскрывают характер героя.</p><p id="3e60ae8b-dd25-80b3-81e1-d2fe0b00cfcd" class="" dir="auto">Локация становится частью идентичности бега и работает не только как фон.</p><p id="3e50ae8b-dd25-8037-82d4-f08be64ac6b3" class="" dir="auto">Подчеркивает и создаем дополнительную динамику и развитие за счет движения света. </p><figure id="3e60ae8b-dd25-809e-976e-d8ab51cce03f" class="image" data-notion-image="SaveClip.App_670860325_17891182101452261_1704218474416157075_n.jpg" dir="ltr"><a href="SaveClip.App_670860325_17891182101452261_1704218474416157075_n.jpg"><img style="width:703.9874877929688px" src="SaveClip.App_670860325_17891182101452261_1704218474416157075_n.jpg"/></a></figure><div id="3e50ae8b-dd25-8063-a968-ef487ee4c637" class="column-list" data-notion-column-list="" dir="auto"><div id="3e50ae8b-dd25-8041-940c-cd00207b8f99" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3e50ae8b-dd25-804a-9e88-c380a85071d1" class="image" data-notion-image="f487d5df-71a5-4ef2-acdd-ca508a5bebe2_sm_motion.webp" dir="ltr"><a href="f487d5df-71a5-4ef2-acdd-ca508a5bebe2_sm_motion.webp"><img style="width:432px" src="f487d5df-71a5-4ef2-acdd-ca508a5bebe2_sm_motion.webp"/></a></figure></div><div id="3e50ae8b-dd25-80f3-bdb8-c207381af291" style="width:50%" class="column" data-notion-column-ratio="0.5" dir="auto"><figure id="3e50ae8b-dd25-800b-9d85-f9ffcbca5173" class="image" data-notion-image="fb3c2445-ff1b-4ff9-aa40-702bea3ac4e9_sm_motion.webp" dir="ltr"><a href="fb3c2445-ff1b-4ff9-aa40-702bea3ac4e9_sm_motion.webp"><img style="width:336px" src="fb3c2445-ff1b-4ff9-aa40-702bea3ac4e9_sm_motion.webp"/></a></figure></div></div><figure id="3e50ae8b-dd25-80d8-a7c5-d2aa747a3019" class="image" data-notion-image="image.png" dir="ltr"><a href="image.png"><img style="width:704px" src="image.png"/></a></figure><figure id="3e50ae8b-dd25-8045-8bb5-cf0f3440f40a" class="image" data-notion-image="image%201.png" dir="ltr"><a href="image%201.png"><img style="width:704px" src="image%201.png"/></a></figure><figure id="3e50ae8b-dd25-8014-a234-e8f7cc02a02b" class="image" data-notion-image="6446ad02-1996-44d5-885e-66cfe6fac06d_sm_motion.webp" dir="ltr"><a href="6446ad02-1996-44d5-885e-66cfe6fac06d_sm_motion.webp"><img style="width:768px" src="6446ad02-1996-44d5-885e-66cfe6fac06d_sm_motion.webp"/></a></figure><figure id="3e60ae8b-dd25-8018-9806-ffa2e382008a" class="image" data-notion-image="SaveClip.App_AQM-FKmBwMcI7iW6B9xfZhApvsSq4bWrBqjoq7Bhj1adlcSkoXb9be4Y2C1PIifp_FLZJb2tWr2VwXX6p-emF4BAvEhuELNZmwDQFtA00000000.gif" dir="ltr"><a href="SaveClip.App_AQM-FKmBwMcI7iW6B9xfZhApvsSq4bWrBqjoq7Bhj1adlcSkoXb9be4Y2C1PIifp_FLZJb2tWr2VwXX6p-emF4BAvEhuELNZmwDQFtA00000000.gif"><img style="width:703.9874877929688px" src="SaveClip.App_AQM-FKmBwMcI7iW6B9xfZhApvsSq4bWrBqjoq7Bhj1adlcSkoXb9be4Y2C1PIifp_FLZJb2tWr2VwXX6p-emF4BAvEhuELNZmwDQFtA00000000.gif"/></a></figure><figure id="3e60ae8b-dd25-8079-9ed2-dac964fa3a09" class="image" data-notion-image="Compound_Clip_1_00000000.gif" dir="ltr"><a href="Compound_Clip_1_00000000.gif"><img style="width:703.9874877929688px" src="Compound_Clip_1_00000000.gif"/></a></figure><figure id="3e60ae8b-dd25-80e8-8c6c-fb10032b0250" class="image" data-notion-image="SaveClip.App_650135582_18313184578287356_3012343236521660558_n.jpg" dir="ltr"><a href="SaveClip.App_650135582_18313184578287356_3012343236521660558_n.jpg"><img style="width:704px" src="SaveClip.App_650135582_18313184578287356_3012343236521660558_n.jpg"/></a></figure><h3 id="3e50ae8b-dd25-808c-adca-f594089aa86b" class="" dir="auto">PADEL</h3><p id="3e50ae8b-dd25-80e2-bd67-e28cb1768e98" class="" dir="auto">Герой и геометрия</p><p id="3e60ae8b-dd25-8057-a6f9-c31c12ff588b" class="" dir="auto">
+</p><p id="3e60ae8b-dd25-809f-a49d-f438e075f1a9" class="" dir="auto">Основой визуального языка становится геометрия корта.</p><p id="3e60ae8b-dd25-80ac-8d48-f777dc8a3235" class="" dir="auto">Линии и разметка формируют композицию кадра. Съёмка через стекло позволяет смотреть на игру с необычных точек.</p><p id="3e60ae8b-dd25-80da-9509-fdb24bb535d4" class="" dir="auto">Макрооптика приближает камеру к самому движению. Она проходит вдоль рук, ракетки и ног прямо перед ударом.</p><p id="3e60ae8b-dd25-807f-a628-d9bf37d0a0f3" class="" dir="auto">Герой постоянно взаимодействует с геометрией пространства. Движение и форма корта становятся частью одной композиции.</p><div id="3e50ae8b-dd25-80ec-b778-c19767f8602a" class="column-list" data-notion-column-list="" dir="auto"><div id="3e50ae8b-dd25-8054-b1c5-d32b7c9d7cc2" style="width:43.75%" class="column" data-notion-column-ratio="0.4375" dir="auto"><figure id="3e50ae8b-dd25-80cd-8e01-f57cd85ea104" class="image" data-notion-image="ba1ccf02-b627-413e-9877-d5d950ec6c06_sm.avif" dir="ltr"><a href="ba1ccf02-b627-413e-9877-d5d950ec6c06_sm.avif"><img style="width:516.9874877929688px" src="ba1ccf02-b627-413e-9877-d5d950ec6c06_sm.avif"/></a></figure><figure id="3e50ae8b-dd25-8028-a998-f2565ea00ad8" class="image" data-notion-image="8f7bfcce-bf52-41f1-91df-643eb1ba11c7_sm_motion.webp" dir="ltr"><a href="8f7bfcce-bf52-41f1-91df-643eb1ba11c7_sm_motion.webp"><img style="width:528px" src="8f7bfcce-bf52-41f1-91df-643eb1ba11c7_sm_motion.webp"/></a></figure><figure id="3e50ae8b-dd25-8011-b14c-c568b9569951" class="image" data-notion-image="f514eda2-5e72-4f89-913b-ee26ceb59f22_sm_motion.webp" dir="ltr"><a href="f514eda2-5e72-4f89-913b-ee26ceb59f22_sm_motion.webp"><img style="width:144px" src="f514eda2-5e72-4f89-913b-ee26ceb59f22_sm_motion.webp"/></a></figure></div><div id="3e50ae8b-dd25-801d-bff4-d7f627f3dc04" style="width:56.25%" class="column" data-notion-column-ratio="0.5625" dir="auto"><figure id="3e50ae8b-dd25-8042-9f6b-c862b5757eb1" class="image" data-notion-image="008632e9-2c15-49f8-a90b-c09ffab409be_sm_motion.webp" dir="ltr"><a href="008632e9-2c15-49f8-a90b-c09ffab409be_sm_motion.webp"><img style="width:336px" src="008632e9-2c15-49f8-a90b-c09ffab409be_sm_motion.webp"/></a></figure><figure id="3e50ae8b-dd25-8057-8f6f-f719a3a0f6f7" class="image" data-notion-image="f0fa1e2d-0443-4d83-8802-022ae4935134_sm_motion.webp" dir="ltr"><a href="f0fa1e2d-0443-4d83-8802-022ae4935134_sm_motion.webp"><img style="width:384px" src="f0fa1e2d-0443-4d83-8802-022ae4935134_sm_motion.webp"/></a></figure><figure id="3e50ae8b-dd25-809f-ad6a-c91c437009bb" class="image" data-notion-image="1437d7ef-1aac-4385-8a6a-2a7b8bccf674_sm_motion.webp" dir="ltr"><a href="1437d7ef-1aac-4385-8a6a-2a7b8bccf674_sm_motion.webp"><img style="width:144px" src="1437d7ef-1aac-4385-8a6a-2a7b8bccf674_sm_motion.webp"/></a></figure></div></div><div id="3e50ae8b-dd25-80ff-87d9-f7c8179d76ca" class="column-list" data-notion-column-list="" dir="auto"><div id="3e50ae8b-dd25-807f-a3c1-de46f6a011be" style="width:33.33333333333333%" class="column" data-notion-column-ratio="0.3333333333333333" dir="auto"><figure id="3e50ae8b-dd25-8036-8ddf-e84507e8caaf" class="image" data-notion-image="6df31657-ed1d-4ec8-a25c-465d7be5f9f5_sm.avif" dir="ltr"><a href="6df31657-ed1d-4ec8-a25c-465d7be5f9f5_sm.avif"><img style="width:240px" src="6df31657-ed1d-4ec8-a25c-465d7be5f9f5_sm.avif"/></a></figure></div><div id="3e50ae8b-dd25-800f-ab85-e3065f50a1d9" style="width:33.33333333333333%" class="column" data-notion-column-ratio="0.3333333333333333" dir="auto"><figure id="3e50ae8b-dd25-80d2-b0f7-dc489b3c731c" class="image" data-notion-image="5d89675b-a5f8-4e80-9d84-d0489e7e1175_sm_motion.webp" dir="ltr"><a href="5d89675b-a5f8-4e80-9d84-d0489e7e1175_sm_motion.webp"><img style="width:288px" src="5d89675b-a5f8-4e80-9d84-d0489e7e1175_sm_motion.webp"/></a></figure></div><div id="3e50ae8b-dd25-80ba-a90a-d1e912abffa5" style="width:33.33333333333333%" class="column" data-notion-column-ratio="0.3333333333333333" dir="auto"><figure id="3e50ae8b-dd25-80a3-b330-ed4045d7212b" class="image" data-notion-image="587c6d62-806a-4414-ad43-43d167852515_sm.avif" dir="ltr"><a href="587c6d62-806a-4414-ad43-43d167852515_sm.avif"><img style="width:288px" src="587c6d62-806a-4414-ad43-43d167852515_sm.avif"/></a></figure></div></div><div id="3e50ae8b-dd25-8004-bf48-ebad6174da6d" class="column-list" data-notion-column-list="" dir="auto"><div id="3e50ae8b-dd25-8001-8412-d88fb0391aa6" style="width:33.33333333333333%" class="column" data-notion-column-ratio="0.3333333333333333" dir="auto"><figure id="3e50ae8b-dd25-8045-9fdd-f3ba67809d77" class="image" data-notion-image="800ab9b5-21a4-4c7b-952f-193c4a6f1e4d_sm_motion.webp" dir="ltr"><a href="800ab9b5-21a4-4c7b-952f-193c4a6f1e4d_sm_motion.webp"><img style="width:480px" src="800ab9b5-21a4-4c7b-952f-193c4a6f1e4d_sm_motion.webp"/></a></figure></div><div id="3e50ae8b-dd25-8093-8be1-fede75fab742" style="width:37.5%" class="column" data-notion-column-ratio="0.375" dir="auto"><figure id="3e50ae8b-dd25-806f-a5dc-e96e447c6a0c" class="image" data-notion-image="3bb2def1-0357-44a1-873d-04cf032f0fe3_sm.avif" dir="ltr"><a href="3bb2def1-0357-44a1-873d-04cf032f0fe3_sm.avif"><img style="width:384px" src="3bb2def1-0357-44a1-873d-04cf032f0fe3_sm.avif"/></a></figure><figure id="3e50ae8b-dd25-80eb-926f-c88baec3fbe0" class="image" data-notion-image="5672a678-11fd-4651-a16f-54504f44d730_sm_motion.webp" dir="ltr"><a href="5672a678-11fd-4651-a16f-54504f44d730_sm_motion.webp"><img style="width:816px" src="5672a678-11fd-4651-a16f-54504f44d730_sm_motion.webp"/></a></figure></div><div id="3e50ae8b-dd25-80b2-b9e4-c4ce8e4b1172" style="width:29.166666666666664%" class="column" data-notion-column-ratio="0.29166666666666663" dir="auto"><figure id="3e50ae8b-dd25-803f-80c3-f9ee790ae08c" class="image" data-notion-image="25f8e9e1-5ccb-4858-9cfb-fd223ccb2435_sm.avif" dir="ltr"><a href="25f8e9e1-5ccb-4858-9cfb-fd223ccb2435_sm.avif"><img style="width:288px" src="25f8e9e1-5ccb-4858-9cfb-fd223ccb2435_sm.avif"/></a></figure><figure id="3e50ae8b-dd25-80f7-a31a-d498b4801517" class="image" data-notion-image="Timeline_2_00000099.gif" dir="ltr"><a href="Timeline_2_00000099.gif"><img style="width:321.1499938964844px" src="Timeline_2_00000099.gif"/></a></figure></div></div><div id="3e60ae8b-dd25-80dc-ad67-e3e24718396f" class="column-list" data-notion-column-list="" dir="auto"><div id="3e60ae8b-dd25-80d5-80ae-ef25130a1284" style="width:33.33333333333333%" class="column" data-notion-column-ratio="0.3333333333333333" dir="auto"><figure id="3e60ae8b-dd25-8071-ae64-f93b2b73f457" class="image" data-notion-image="SaveClip.App_AQPYu1zpKrJe5AKwUILHQ9mgylKLyjB3wKeqZick4ARlBhkYriVaQ8_DM6AwBOc-QIoXsmlh1TmJFY6peoe2D0sbbuVxmdXxFMRCM9Y00000032%201.gif" dir="ltr"><a href="SaveClip.App_AQPYu1zpKrJe5AKwUILHQ9mgylKLyjB3wKeqZick4ARlBhkYriVaQ8_DM6AwBOc-QIoXsmlh1TmJFY6peoe2D0sbbuVxmdXxFMRCM9Y00000032%201.gif"><img style="width:321px" src="SaveClip.App_AQPYu1zpKrJe5AKwUILHQ9mgylKLyjB3wKeqZick4ARlBhkYriVaQ8_DM6AwBOc-QIoXsmlh1TmJFY6peoe2D0sbbuVxmdXxFMRCM9Y00000032%201.gif"/></a></figure></div><div id="3e60ae8b-dd25-8027-8774-e98a69c5dcf7" style="width:33.33333333333333%" class="column" data-notion-column-ratio="0.3333333333333333" dir="auto"><figure id="3e60ae8b-dd25-80a2-94c3-f723338589b7" class="image" data-notion-image="SaveClip.App_AQPYu1zpKrJe5AKwUILHQ9mgylKLyjB3wKeqZick4ARlBhkYriVaQ8_DM6AwBOc-QIoXsmlh1TmJFY6peoe2D0sbbuVxmdXxFMRCM9Y00000761.gif" dir="ltr"><a href="SaveClip.App_AQPYu1zpKrJe5AKwUILHQ9mgylKLyjB3wKeqZick4ARlBhkYriVaQ8_DM6AwBOc-QIoXsmlh1TmJFY6peoe2D0sbbuVxmdXxFMRCM9Y00000761.gif"><img style="width:321px" src="SaveClip.App_AQPYu1zpKrJe5AKwUILHQ9mgylKLyjB3wKeqZick4ARlBhkYriVaQ8_DM6AwBOc-QIoXsmlh1TmJFY6peoe2D0sbbuVxmdXxFMRCM9Y00000761.gif"/></a></figure></div><div id="3e60ae8b-dd25-8087-800d-c0bedd25774c" style="width:33.33333333333333%" class="column" data-notion-column-ratio="0.3333333333333333" dir="auto"><figure id="3e60ae8b-dd25-8084-b03d-d358384242f9" class="image" data-notion-image="SaveClip.App_AQPYu1zpKrJe5AKwUILHQ9mgylKLyjB3wKeqZick4ARlBhkYriVaQ8_DM6AwBOc-QIoXsmlh1TmJFY6peoe2D0sbbuVxmdXxFMRCM9Y00000178.gif" dir="ltr"><a href="SaveClip.App_AQPYu1zpKrJe5AKwUILHQ9mgylKLyjB3wKeqZick4ARlBhkYriVaQ8_DM6AwBOc-QIoXsmlh1TmJFY6peoe2D0sbbuVxmdXxFMRCM9Y00000178.gif"><img style="width:192px" src="SaveClip.App_AQPYu1zpKrJe5AKwUILHQ9mgylKLyjB3wKeqZick4ARlBhkYriVaQ8_DM6AwBOc-QIoXsmlh1TmJFY6peoe2D0sbbuVxmdXxFMRCM9Y00000178.gif"/></a></figure></div></div><p id="3e50ae8b-dd25-80d2-8fd9-c5775a152ed8" class="" dir="auto">
+</p><p id="3e50ae8b-dd25-80f4-9cf0-e33cc827aac6" class="" dir="auto">
+</p><h4 id="3e50ae8b-dd25-807e-8389-df92383d4ead" class="" dir="auto">SPORTWEAR</h4><p id="3e60ae8b-dd25-8006-835e-de56cbea626d" class="" dir="auto"><strong>Свобода и жизнь</strong></p><p id="3e60ae8b-dd25-8038-bdf2-df74503e33bc" class="" dir="auto">Здесь визуальный язык становится ближе к fashion.</p><p id="3e60ae8b-dd25-809f-8a47-e9d781767d21" class="" dir="auto">В центре находятся модели, их движение и позирование. Одежда раскрывается через силуэт, пластику и характер человека.</p><p id="3e60ae8b-dd25-8050-98d3-e1b9d0e4693c" class="" dir="auto">Спорт становится частью повседневной жизни. Он не задаёт жёсткую структуру действия, а становится естественной частью образа.</p><p id="3e60ae8b-dd25-80aa-aa43-c74a28bc2d59" class="" dir="auto">Студийное пространство строится вокруг практических эффектов.</p><p id="3e60ae8b-dd25-80e6-8c6b-cc1bbad6200d" class="" dir="auto">Камера проходит сквозь воду на высокой скорости. Замедленная съёмка фиксирует движение воды и одежды. Отдельные пролёты вдоль тела позволяют рассмотреть детали.</p><p id="3e60ae8b-dd25-800d-af53-c47e50d69f69" class="" dir="auto">Вода появляется на полу и создаёт отражения. В некоторых сценах она исчезает, открывая CG пространство. Динамический свет связывает разные состояния внутри одного ролика.</p><figure id="3e60ae8b-dd25-8099-80c4-ed7a4e009bd1" class="image" data-notion-image="Still_2026-09-25_100146_1.24.1.png" dir="ltr"><a href="Still_2026-09-25_100146_1.24.1.png"><img style="width:703.9874877929688px" src="Still_2026-09-25_100146_1.24.1.png"/></a></figure><figure id="3e60ae8b-dd25-8044-9c81-cc70824046e1" class="image" data-notion-image="SaveClip.App_AQNWmrcxWDerYQ2Irj8XvrRZdbY8f6raStSQOFF5DZ6I1bU4ozrNGOiOw_eM7pb2gvovo7EbZZ0EQwpBRjUdvBueu5tamUkig1ukAXM00000075.gif" dir="ltr"><a href="SaveClip.App_AQNWmrcxWDerYQ2Irj8XvrRZdbY8f6raStSQOFF5DZ6I1bU4ozrNGOiOw_eM7pb2gvovo7EbZZ0EQwpBRjUdvBueu5tamUkig1ukAXM00000075.gif"><img style="width:703.9874877929688px" src="SaveClip.App_AQNWmrcxWDerYQ2Irj8XvrRZdbY8f6raStSQOFF5DZ6I1bU4ozrNGOiOw_eM7pb2gvovo7EbZZ0EQwpBRjUdvBueu5tamUkig1ukAXM00000075.gif"/></a></figure><figure id="3e60ae8b-dd25-800b-ba52-f6a9278a163c" class="image" data-notion-image="SaveClip.App_AQPJ7Je4FqQmCg6-v2UvpuwR5AMCKZw8WM1VWei4iH4nI_GQ6eSNOo3nSOiPPdBy-KIpndeX5WXwYCouFXlP2ZTm.gif" dir="ltr"><a href="SaveClip.App_AQPJ7Je4FqQmCg6-v2UvpuwR5AMCKZw8WM1VWei4iH4nI_GQ6eSNOo3nSOiPPdBy-KIpndeX5WXwYCouFXlP2ZTm.gif"><img style="width:703.9874877929688px" src="SaveClip.App_AQPJ7Je4FqQmCg6-v2UvpuwR5AMCKZw8WM1VWei4iH4nI_GQ6eSNOo3nSOiPPdBy-KIpndeX5WXwYCouFXlP2ZTm.gif"/></a></figure><figure id="3e60ae8b-dd25-805d-b124-c51909f25ca8" class="image" data-notion-image="SaveClip.App_AQPJ7Je4FqQmCg6-v2UvpuwR5AMCKZw8WM1VWei4iH4nI_GQ6eSNOo3nSOiPPdBy-KIpndeX5WXwYCouFXlP2ZTm00000023.gif" dir="ltr"><a href="SaveClip.App_AQPJ7Je4FqQmCg6-v2UvpuwR5AMCKZw8WM1VWei4iH4nI_GQ6eSNOo3nSOiPPdBy-KIpndeX5WXwYCouFXlP2ZTm00000023.gif"><img style="width:703.9874877929688px" src="SaveClip.App_AQPJ7Je4FqQmCg6-v2UvpuwR5AMCKZw8WM1VWei4iH4nI_GQ6eSNOo3nSOiPPdBy-KIpndeX5WXwYCouFXlP2ZTm00000023.gif"/></a></figure><p id="3e50ae8b-dd25-80be-adc2-ed10e7b7bfae" class="" dir="auto"><br/>FITNES</p><p id="3e60ae8b-dd25-80d1-999a-fe7af33ef66f" class="" dir="auto"><strong>Движение и эстетика</strong></p><p id="3e60ae8b-dd25-80dc-b542-f8d632dc2afd" class="" dir="auto">
+</p><p id="3e60ae8b-dd25-80bb-a556-f3261c972b1d" class="" dir="auto">Фитнес часто показывают через упражнения и физическую нагрузку. Здесь акцент смещается на движение и эстетику.</p><p id="3e60ae8b-dd25-8051-82e1-e7dcb28bd413" class="" dir="auto">Для героев создаётся пространство со световой платформой и потолком.</p><p id="3e60ae8b-dd25-80de-a443-cfe9894e253f" class="" dir="auto">Ролик снимается на роборуку. Камера проходит длинные фазы движения, внутри которых несколько действий соединяются через match cut.</p><p id="3e60ae8b-dd25-800b-8461-f2e026370053" class="" dir="auto">Одно движение переходит в другое. Разные упражнения складываются в единую визуальную последовательность.</p><figure id="3e60ae8b-dd25-8077-9658-c2048bd3477f" class="image" data-notion-image="SaveClip.App_AQMEgJuIye7B82qfNAcb2vBeVg0cfVKiAP_YbIUUW1AkgMhcAxYQT_t2IyBu_ZmArWtzGHqHG0vaJiH9ga_bEIIh8ZCqqK7iZvY48eI00000169.gif" dir="ltr"><a href="SaveClip.App_AQMEgJuIye7B82qfNAcb2vBeVg0cfVKiAP_YbIUUW1AkgMhcAxYQT_t2IyBu_ZmArWtzGHqHG0vaJiH9ga_bEIIh8ZCqqK7iZvY48eI00000169.gif"><img style="width:703.9874877929688px" src="SaveClip.App_AQMEgJuIye7B82qfNAcb2vBeVg0cfVKiAP_YbIUUW1AkgMhcAxYQT_t2IyBu_ZmArWtzGHqHG0vaJiH9ga_bEIIh8ZCqqK7iZvY48eI00000169.gif"/></a></figure><figure id="3e50ae8b-dd25-809b-84b2-c8fc99fc7f75" class="image" data-notion-image="Timeline_2_00000220.gif" dir="ltr"><a href="Timeline_2_00000220.gif"><img style="width:703.9874877929688px" src="Timeline_2_00000220.gif"/></a></figure><figure id="3e50ae8b-dd25-80de-8e6f-e612ef4528dc" class="image" data-notion-image="Timeline_2_00000025.gif" dir="ltr"><a href="Timeline_2_00000025.gif"><img style="width:703.9874877929688px" src="Timeline_2_00000025.gif"/></a></figure><figure id="3e60ae8b-dd25-8003-9beb-df6d294ef384" class="image" data-notion-image="SaveClip.App_AQMEgJuIye7B82qfNAcb2vBeVg0cfVKiAP_YbIUUW1AkgMhcAxYQT_t2IyBu_ZmArWtzGHqHG0vaJiH9ga_bEIIh8ZCqqK7iZvY48eI00000229.gif" dir="ltr"><a href="SaveClip.App_AQMEgJuIye7B82qfNAcb2vBeVg0cfVKiAP_YbIUUW1AkgMhcAxYQT_t2IyBu_ZmArWtzGHqHG0vaJiH9ga_bEIIh8ZCqqK7iZvY48eI00000229.gif"><img style="width:703.9874877929688px" src="SaveClip.App_AQMEgJuIye7B82qfNAcb2vBeVg0cfVKiAP_YbIUUW1AkgMhcAxYQT_t2IyBu_ZmArWtzGHqHG0vaJiH9ga_bEIIh8ZCqqK7iZvY48eI00000229.gif"/></a></figure><figure id="3e50ae8b-dd25-8077-a3e3-ff1ee6805856" class="image" data-notion-image="image%202.png" dir="ltr"><a href="image%202.png"><img style="width:703.9750366210938px" src="image%202.png"/></a></figure><figure id="3e60ae8b-dd25-8070-83c4-cc3351b3d380" class="image" data-notion-image="SaveClip.App_708088298_18083341343426927_5695181273401033961_n.jpg" dir="ltr"><a href="SaveClip.App_708088298_18083341343426927_5695181273401033961_n.jpg"><img style="width:704px" src="SaveClip.App_708088298_18083341343426927_5695181273401033961_n.jpg"/></a></figure><p id="3e50ae8b-dd25-807b-aef9-f65508b96a40" class="" dir="auto">
+</p><h4 id="3e50ae8b-dd25-8024-bf03-c9d53480c569" class="" dir="auto">LOCATION</h4><p id="3e50ae8b-dd25-80f4-8db0-edb0f923efea" class="" dir="auto">
+</p><p id="3e50ae8b-dd25-8077-831e-f9e933d73299" class="" dir="auto">Бег - Стадион ЦСКА</p><figure id="3e60ae8b-dd25-8052-99ca-d66d3ce3f5ba" class="image" data-notion-image="image%203.png" dir="ltr"><a href="image%203.png"><img style="width:704px" src="image%203.png"/></a></figure><p id="3e50ae8b-dd25-80db-a826-d903f8272c0d" class="" dir="auto">Падел - Крытый корт или имитация корта </p><p id="3e50ae8b-dd25-80a2-bbc8-ffd1fad1b298" class="" dir="auto">Фитнес - студия застройка </p><p id="3e50ae8b-dd25-804b-9f68-d864cdb9fdb7" class="" dir="auto">Streetwear - дарк рум с водой + CG фона</p><figure id="3e60ae8b-dd25-80ac-bb5e-fdcfa2bd79e5" class="image" data-notion-image="SaveClip.App_AQObklY8OU3CheiHHVF3s_qYcUJBCnZ3YkvMZ_Ybba6X67agFVtqfUEVjEMANWTG2HiFbxg__k1lD_6MZpRhzJzoMe09ESeB5IkGSfE00000000.gif" dir="ltr"><a href="SaveClip.App_AQObklY8OU3CheiHHVF3s_qYcUJBCnZ3YkvMZ_Ybba6X67agFVtqfUEVjEMANWTG2HiFbxg__k1lD_6MZpRhzJzoMe09ESeB5IkGSfE00000000.gif"><img style="width:703.9874877929688px" src="SaveClip.App_AQObklY8OU3CheiHHVF3s_qYcUJBCnZ3YkvMZ_Ybba6X67agFVtqfUEVjEMANWTG2HiFbxg__k1lD_6MZpRhzJzoMe09ESeB5IkGSfE00000000.gif"/></a></figure><p id="3e50ae8b-dd25-80da-b5d5-e476d0782528" class="" dir="auto">
+</p><h4 id="3e50ae8b-dd25-8095-8a43-d2dba3658c32" class="" dir="auto">CAST &amp; STYLING </h4><p id="3e50ae8b-dd25-80ab-b561-eefbc675b7e3" class="" dir="auto">
+</p><p id="3e50ae8b-dd25-80f8-afd6-f738ed628d17" class="" dir="auto">Не хочется нагнетать слишком много игры, хочется живых и настоящих людей в кадре. </p><p id="3e60ae8b-dd25-80b1-8260-cd2f8079624f" class="" dir="auto">Важно сохранить ощущение реального спорта и одновременно дать героям достаточно индивидуальности, чтобы они воспринимались не только как спортсмены, но и как носители образа SONU.</p><p id="3e50ae8b-dd25-806f-84b6-cce62d55b618" class="" dir="auto">При этом каждый герой должен иметь запоминающийся образ. Он должен соответствовать уровню одежды и характеру бренда.</p><p id="3e50ae8b-dd25-80b2-8e7c-e9adc0d235c4" class="" dir="auto">
+</p><h4 id="3e50ae8b-dd25-804f-9818-d5bdc773a8df" class="" dir="auto">SOUND &amp; EDIT </h4><p id="3e50ae8b-dd25-801f-bee6-d8c25f7a82a7" class="" dir="auto">
+</p><p id="3e60ae8b-dd25-8066-86c4-da3b64e58543" class="" dir="auto">Ритм меняется вместе с действием. Быстрые фрагменты чередуются с паузами и наблюдением.</p><p id="3e60ae8b-dd25-803b-bf0f-dc316cc52674" class="" dir="auto">Рапиды позволяют задержаться на отдельных моментах. Они показывают движение ткани, жест, взгляд или короткую эмоцию.</p><p id="3e60ae8b-dd25-80a1-8251-c705de7cc405" class="" dir="auto">Звук помогает почувствовать пространство, эхо, гул. Мы слышим шаги, дыхание, движение одежды и окружающую среду. Это должен быть хороший современный семпл и саундизайн, без банальных акцентах на движениях и барабанов.</p><p id="3e60ae8b-dd25-804a-8086-d3d2cdded462" class="" dir="auto">
+</p><h4 id="3e50ae8b-dd25-801a-9c4a-e1e50f0a34fc" class="" dir="auto">CONCLUSION </h4><p id="3e60ae8b-dd25-8038-be93-c74775ecda32" class="" dir="auto">
+</p><p id="3e60ae8b-dd25-801e-aa8f-d0d18ee8ad92" class="" dir="auto">Центральной частью спорта всё равно остаются человек, движение и ощущение себя. Именно это отражает подход SONU.</p><p id="3e60ae8b-dd25-807e-b286-e60d14e966da" class="" dir="auto">Мне было интересно работать с этой идеей, миссией и позиционированием бренда. Особенно интересно было соединить их с моей визуальной стилистикой и собственным видением.</p><p id="3e60ae8b-dd25-8085-b640-d093deb2adf4" class="" dir="auto">Мы видим большой потенциал в том, чтобы через простые и живые моменты показать характер бренда. Не объяснять его напрямую, а дать почувствовать через героя, движение, одежду и пространство.</p><p id="3e60ae8b-dd25-8040-9d57-c4f1f94d0361" class="" dir="auto">Спасибо за возможность стать его частью!</p><p id="3e60ae8b-dd25-8002-a303-f46a24ac2e50" class="" dir="auto">
+</p><figure id="3e60ae8b-dd25-800f-a7e2-e9edbbd1b43d" class="image" data-notion-image="SaveClip.App_813804580_18630967003027399_8320781145748091962_n.jpg" dir="ltr"><a href="SaveClip.App_813804580_18630967003027399_8320781145748091962_n.jpg"><img style="width:703.9874877929688px" src="SaveClip.App_813804580_18630967003027399_8320781145748091962_n.jpg"/></a></figure><figure id="3e60ae8b-dd25-806b-a639-f0c77f214622" class="image" data-notion-image="SaveClip.App_809615892_18630966910027399_6445407313194522199_n.jpg" dir="ltr"><a href="SaveClip.App_809615892_18630966910027399_6445407313194522199_n.jpg"><img style="width:703.9874877929688px" src="SaveClip.App_809615892_18630966910027399_6445407313194522199_n.jpg"/></a></figure><figure id="3e60ae8b-dd25-80ce-8e76-e36746295a95" class="image" data-notion-image="SaveClip.App_810962376_18630966880027399_8000377832894081523_n.jpg" dir="ltr"><a href="SaveClip.App_810962376_18630966880027399_8000377832894081523_n.jpg"><img style="width:703.9874877929688px" src="SaveClip.App_810962376_18630966880027399_8000377832894081523_n.jpg"/></a></figure><figure id="3e60ae8b-dd25-8034-bf5c-f6389fbd646a" class="image" data-notion-image="SaveClip.App_809201602_18630966919027399_7382719695099927951_n.jpg" dir="ltr"><a href="SaveClip.App_809201602_18630966919027399_7382719695099927951_n.jpg"><img style="width:703.9874877929688px" src="SaveClip.App_809201602_18630966919027399_7382719695099927951_n.jpg"/></a></figure><figure id="3e60ae8b-dd25-809f-b603-f0da7d675879" class="image" data-notion-image="SaveClip.App_806517102_18630966775027399_6926370989531113408_n.jpg" dir="ltr"><a href="SaveClip.App_806517102_18630966775027399_6926370989531113408_n.jpg"><img style="width:703.9874877929688px" src="SaveClip.App_806517102_18630966775027399_6926370989531113408_n.jpg"/></a></figure><figure id="3e60ae8b-dd25-809a-b903-ff4bb36bc13d" class="image" data-notion-image="SaveClip.App_813987101_18630967036027399_2167070489183120441_n.jpg" dir="ltr"><a href="SaveClip.App_813987101_18630967036027399_2167070489183120441_n.jpg"><img style="width:3072px" src="SaveClip.App_813987101_18630967036027399_2167070489183120441_n.jpg"/></a></figure><figure id="3e60ae8b-dd25-800a-9a84-c12e5d241b96" class="image" data-notion-image="SaveClip.App_813841800_18630966934027399_8016775618354045742_n.jpg" dir="ltr"><a href="SaveClip.App_813841800_18630966934027399_8016775618354045742_n.jpg"><img style="width:703.9874877929688px" src="SaveClip.App_813841800_18630966934027399_8016775618354045742_n.jpg"/></a></figure><figure id="3e60ae8b-dd25-808b-a295-eb101872f647" class="image" data-notion-image="455e4759-4006-4bd2-b183-4f8e860edc9f_sm.avif" dir="ltr"><a href="455e4759-4006-4bd2-b183-4f8e860edc9f_sm.avif"><img style="width:703.9750366210938px" src="455e4759-4006-4bd2-b183-4f8e860edc9f_sm.avif"/></a></figure><figure id="3e60ae8b-dd25-80ff-98f7-f67ab26b3fc5" class="image" data-notion-image="SaveClip.App_671103689_17891182119452261_8470176740237721121_n.jpg" dir="ltr"><a href="SaveClip.App_671103689_17891182119452261_8470176740237721121_n.jpg"><img style="width:704px" src="SaveClip.App_671103689_17891182119452261_8470176740237721121_n.jpg"/></a></figure><figure id="3e60ae8b-dd25-8041-8d50-e60098603298" class="image" data-notion-image="SaveClip.App_670422128_17891182146452261_463993209109617085_n.jpg" dir="ltr"><a href="SaveClip.App_670422128_17891182146452261_463993209109617085_n.jpg"><img style="width:704px" src="SaveClip.App_670422128_17891182146452261_463993209109617085_n.jpg"/></a></figure><figure id="3e60ae8b-dd25-801b-8c77-d97f334c9e39" class="image" data-notion-image="SaveClip.App_671243747_17891182128452261_226771427028069025_n.jpg" dir="ltr"><a href="SaveClip.App_671243747_17891182128452261_226771427028069025_n.jpg"><img style="width:704px" src="SaveClip.App_671243747_17891182128452261_226771427028069025_n.jpg"/></a></figure><figure id="3e60ae8b-dd25-8034-b56c-c4bfb100a0db" class="image" data-notion-image="SaveClip.App_708102697_18578048716038202_8006964236910031512_n.jpg" dir="ltr"><a href="SaveClip.App_708102697_18578048716038202_8006964236910031512_n.jpg"><img style="width:703.9874877929688px" src="SaveClip.App_708102697_18578048716038202_8006964236910031512_n.jpg"/></a></figure><figure id="3e60ae8b-dd25-806a-84a6-e59d4d4342a8" class="image" data-notion-image="SaveClip.App_689039630_18590273671057539_988142558543941887_n.jpg" dir="ltr"><a href="SaveClip.App_689039630_18590273671057539_988142558543941887_n.jpg"><img style="width:2305px" src="SaveClip.App_689039630_18590273671057539_988142558543941887_n.jpg"/></a></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
